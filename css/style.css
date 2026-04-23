@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f6f9;
-    margin: 10px;
+    margin: 20px;
 }
 
 h1 {
@@ -32,15 +32,10 @@ button:hover {
     background-color: #0056b3;
 }
 
-.table-container {
-    overflow-x: auto;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
     background: white;
-    min-width: 500px; /* penting untuk scroll */
 }
 
 th, td {
@@ -61,10 +56,5 @@ th, td {
 @media (max-width: 600px) {
     form {
         flex-direction: column;
-    }
-
-    input, button {
-        width: 100%;
-        box-sizing: border-box;
     }
 }
