@@ -33,6 +33,8 @@ function tambahRow(nama, kategori, harga) {
     btnDelete.textContent = "Hapus";
     btnDelete.setAttribute("aria-label", `Hapus produk ${nama}`);
 
+    btnDelete.classList.add("delete");
+
     btnDelete.addEventListener("click", () => row.remove());
 
     tdTindakan.appendChild(btnDelete);
