@@ -1,27 +1,42 @@
 const table = document.getElementById("productTable");
 const form = document.getElementById("productForm");
 
-fetch("https://dummyjson.com/products?limit=10")
-    .then(res => res.json())
-    .then(data => {
-        data.products.forEach(product => {
-            tambahRow(product.title, product.category, product.price);
-        });
-    });
+document.addEventListener("DOMContentLoaded", () => {
+    loadProducts();
+});
+
+function loadProducts() {
+    fetch("https://dummyjson.com/products?limit=10")
+        .then(res => res.json())
+        .then(data => {
+            data.products.forEach(product => {
+                tambahRow(product.title, product.category, product.price);
+            });
+        })
+        .catch(() => console.error("Gagal ambil data"));
+}
 
 function tambahRow(nama, kategori, harga) {
     const row = document.createElement("tr");
 
-    row.innerHTML = `
-        <td>${nama}</td>
-        <td>${kategori}</td>
-        <td>${harga}</td>
-        <td><button class="delete">Hapus</button></td>
-    `;
+    const tdNama = document.createElement("td");
+    tdNama.textContent = nama;
 
-    row.querySelector(".delete").addEventListener("click", () => {
-        row.remove();
-    });
+    const tdKategori = document.createElement("td");
+    tdKategori.textContent = kategori;
+
+    const tdHarga = document.createElement("td");
+    tdHarga.textContent = `RM ${harga}`;
+
+    const tdTindakan = document.createElement("td");
+    const btnDelete = document.createElement("button");
+    btnDelete.textContent = "Hapus";
+    btnDelete.setAttribute("aria-label", `Hapus produk ${nama}`);
+
+    btnDelete.addEventListener("click", () => row.remove());
+
+    tdTindakan.appendChild(btnDelete);
+    row.append(tdNama, tdKategori, tdHarga, tdTindakan);
 
     table.appendChild(row);
 }
@@ -34,8 +49,6 @@ form.addEventListener("submit", function(e) {
     const harga = document.getElementById("harga").value;
 
     tambahRow(nama, kategori, harga);
-
-    console.log("Produk ditambah:", nama, kategori, harga);
 
     form.reset();
 });
